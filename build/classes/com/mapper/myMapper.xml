@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.IUsedDao">
+
+	<!-- resultMap type="com.bean.pageBean" id="pageBean">
+		<id column="page" property="page"/>
+		<result column="gname" property="gname"/>
+	</resultMap> -->
+	
+	
+	<insert id="save" parameterType="us">
+	insert into users(uname,accunt,passwd) values(#{uname},#{accunt},#{passwd})
+	</insert>
+	<select id="findUsers" resultType="com.bean.users">
+	select uid,uname,accunt,passwd from users
+	</select>
+	<select id="findAllSpeciess" resultType="com.bean.specie">
+	select * from vspecie
+	</select>
+	<insert id="saveGoods" parameterType="go">
+	insert into goods(gname,gprice,gprice_float,gbuy_time,gspecies_id,goodsid,picname) values(#{gname},#{gprice},#{gprice_float},#{gbuy_time},#{gspecies_id},#{goodsid},#{picname});
+	</insert>
+	<select id="findSpecieGoods" parameterType="String" resultType="com.bean.goods">
+	select * from vgoods where gspecie_name=#{gspecie_name}
+	</select>
+	<select id="findMyGoods" parameterType="Integer" resultType="com.bean.goods">
+	select * from vgoods where goodsid=#{uid}
+	</select>
+	<delete id="deleteGood" parameterType="Integer">
+	delete from goods where gid=#{gid}
+	</delete>
+	<select id="findsome" parameterType="String" resultType="com.bean.goods">
+	select * from vgoods where gname like '%${_parameter}%'
+	</select>
+	<insert id="saveSp" parameterType="spe">
+	insert into specie(gspecie_name,asid) values(#{gspecie_name},#{asid})
+	</insert>
+	<select id="findByid" parameterType="Integer" resultType="com.bean.goods">
+	select * from vgoods where gid=#{gid}
+	</select>
+	<select id="findState" parameterType="com.bean.twice" resultType="com.bean.twice">
+	SELECT * FROM twice WHERE tuid=#{tuid} AND tgid=#{tgid}
+	</select>
+	<insert id="saveState" parameterType="com.bean.twice">
+	insert into twice values(#{tuid},#{tgid},#{state})
+	</insert>
+</mapper>
